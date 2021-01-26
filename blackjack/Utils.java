@@ -11,14 +11,10 @@ public class Utils {
 	}
 	
 	public static int mapValueToInt(String value) {
-		if(value == "A") {
+		if(value.equals("A")) {
 			return 1;
-		} else if(value == "K") {
-			return 11;
-		} else if(value == "Q") {
-			return 12;
-		} else if(value == "J") {
-			return 13;
+		} else if(value.equls("K") || value.equals("Q") || value.equals("J")) {
+			return 10;
 		} else {
 			return Integer.parseInt(value);
 		}
