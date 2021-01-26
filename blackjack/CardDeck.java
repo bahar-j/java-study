@@ -1,10 +1,10 @@
 package blackjack;
 
 public class CardDeck {
-	Card[] cardsLeft;
+	Card[] cards;
 	
 	public CardDeck(Card[] cards) {
-		this.cardsLeft = cards;
+		this.cards = cards;
 	}
 	
 	public Card giveCard() {
@@ -12,10 +12,10 @@ public class CardDeck {
 		int idx = 0;
 		while(value.equals("0")) {
 			idx = Utils.nextInt();
-			value = cardsLeft[idx].value;
+			value = cards[idx].value;
 		}
-		Card returnValue = new Card(cardsLeft[idx].pattern, cardsLeft[idx].value);
-		cardsLeft[idx].value = "0"; //비어있는 카드는 0 
-		return returnValue;
+		Card pickedCard = new Card(cards[idx].pattern, cards[idx].value);
+		cards[idx].value = "0"; //비어있는 카드는 value 0으로 바꿔줌
+		return pickedCard;
 	}
 }
