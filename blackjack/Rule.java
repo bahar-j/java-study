@@ -38,15 +38,25 @@ public class Rule {
 	public void announceWinner(Dealer dealer, Gamer gamer) {
 		int dealerScore = calculateSum(dealer.openAllCards());
 		int gamerScore = calculateSum(gamer.openAllCards());
-		if (dealerScore > gamerScore) {
+
+		if (diffWith21(dealerScore) < 0 && diffWith21(gamerScore) < 0) {
+			System.out.println("승자가 없습니다🙀");
+		} else if (diffWith21(dealerScore) < 0) {
+			System.out.println("승리하셨습니다🙊");
+		} else if (diffWith21(gamerScore) < 0) {
 			System.out.println("패배하셨습니다🙀");
-		} else if (dealerScore == gamerScore) {
+		} else if (diffWith21(dealerScore) < diffWith21(gamerScore)) {
+			System.out.println("패배하셨습니다🙀");
+		} else if (diffWith21(dealerScore) == diffWith21(gamerScore)) {
 			System.out.println("무승부입니다.");
 		} else {
 			System.out.println("승리하셨습니다🙊");
 		}
 	}
 
+	public int diffWith21 (int score) {
+		return 21 - score;
+	}
 
 
 }
