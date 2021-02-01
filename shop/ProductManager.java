@@ -21,21 +21,12 @@ public class ProductManager {
 	}
 	
 	public Product getProductById(int id) throws Exception {
-		int idOfProduct = 0;
-		
+		int selectedProductId = 0;
+
 		for(int i = 0; i < idx; i++) {
-			if (products[i] instanceof NoteBook) {
-				NoteBook notebook = (NoteBook)products[i];
-				idOfProduct = notebook.getId();
-				if (idOfProduct == id) {
-					return notebook;
-				}
-			} else if (products[i] instanceof Phone) {
-				Phone phone = (Phone)products[i];
-				idOfProduct = phone.getId();
-				if (idOfProduct == id) {
-					return phone;
-				}
+			selectedProductId = products[i].getId();
+			if (selectedProductId == id) {
+				return products[i];
 			}
 		}
 		
