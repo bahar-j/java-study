@@ -30,7 +30,8 @@ public class NoteBook implements Product {
 		this.price = (int)(price * (1 - discountPercentage/100.0));
 		return this.price;
 	}
-	
+
+	@Override
 	public int getId() {
 		return this.productId;
 	}
