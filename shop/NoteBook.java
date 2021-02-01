@@ -25,9 +25,10 @@ public class NoteBook implements Product {
 	}
 	
 	@Override
-	public void applyDiscount() {
+	public int applyDiscount() {
 		// TODO Auto-generated method stub
 		this.price = (int)(price * (1 - discountPercentage/100.0));
+		return this.price;
 	}
 	
 	public int getId() {

@@ -15,15 +15,8 @@ public class ProductManager {
 	}
 
 	public void printProducts() {
-		// TODO Auto-generated method stub
 		for(int i = 0; i < idx; i++) {
-			if (products[i] instanceof NoteBook) {
-				NoteBook notebook = (NoteBook)products[i];
-				notebook.printOwnProduct();
-			} else if (products[i] instanceof Phone) {
-				Phone phone = (Phone)products[i];
-				phone.printOwnProduct();
-			}
+			products[i].printOwnProduct();
 		}
 	}
 	
