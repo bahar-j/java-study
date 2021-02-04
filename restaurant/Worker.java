@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Worker {
 	private Queue<Order> orders;
 	private List<Food> foodsInRestaurant;
-	private static final Scanner SCANNER = new Scanner(System.in);
 
 	public Worker() {
 		orders = new LinkedList<Order>();
@@ -59,7 +58,7 @@ public class Worker {
 		bringMenu();
 		System.out.println("어떤 음식을 주문하시겠어요? ");
 		while(true) {
-			String name = SCANNER.nextLine();
+			String name = Main.SCANNER.nextLine();
 			if (name.equals("end")) break;
 			try {
 				Food food = checkWhichFood(name);
