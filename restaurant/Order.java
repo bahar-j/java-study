@@ -6,7 +6,7 @@ import java.util.List;
 public class Order {
 	private List<Food> foods;
 	private int amount;
-	
+
 	public Order() {}
 
 	public Order(List<Food> foods, int amount) {
@@ -14,7 +14,7 @@ public class Order {
 		this.foods = foods;
 		this.amount = amount;
 	}
-	
+
 	public void printOrder() {
 		Iterator<Food> iterator = foods.iterator();
 		while(iterator.hasNext()) {
