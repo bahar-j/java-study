@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class DOSmain {
+public class Terminal {
 	static final Scanner SCANNER = new Scanner(System.in);
 	static final String NO_SUCH_DIRECTORY = "cd: no such file or directory: ";
 	static final String NO_SUCH_COMMAND = "zsh: command not found: ";
+	static final String NO_PARENT_DIRECTORY = "alreay in root directory";
 	static final String HOME = "{$HOME}";
 
 	public static void ls(File file) {
@@ -35,8 +36,11 @@ public class DOSmain {
 		return new_file;
 	}
 
-	public static File cdToBefore(File file){
+	public static File cdToBefore(File file) throws Exception {
 		File parent = file.getParentFile();
+		if(parent == null) {
+			throw new Exception(NO_PARENT_DIRECTORY);
+		}
 
 		return parent;
 	}
@@ -111,7 +115,11 @@ public class DOSmain {
 					if(commands[1].matches("^[\\w][-_.\\\\|\\w]*")) {
 						file = cd(file, commands[1]);
 					} else if (commands[1].equals("..")) {
-						file = cdToBefore(file);
+						try {
+							file = cdToBefore(file);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
 					} else {
 						System.out.println(NO_SUCH_DIRECTORY+commands[1]);
 					}
