@@ -27,7 +27,6 @@ public class Util {
 		try {
 			obj = parser.parse(data);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -38,7 +37,7 @@ public class Util {
 				JSONObject jo = (JSONObject)iter.next(); // Object -> JSONObject
 				String name = (String)jo.get("name");
 				String phoneNumber = (String)jo.get("phoneNumber");
-				String birth = (String)jo.get("birth"); // long을 리턴함
+				String birth = (String)jo.get("birth");
 				datas.add(new PhoneInfo(name, phoneNumber, birth));
 			}
 		}
