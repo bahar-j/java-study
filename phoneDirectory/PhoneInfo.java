@@ -38,4 +38,21 @@ public class PhoneInfo implements Serializable {
 		System.out.println("전화번호: "+ phoneNumber);
 		System.out.println("생년월일 : "+ birth);
 	}
+
+	@Override
+	public String toString() {
+		return "PhoneInfo [name=" + name + ", phoneNumber=" + phoneNumber + ", birth=" + birth + "]";
+	}
+	
+
+//	@Override
+//	public int compareTo(PhoneInfo person) {
+//		// TODO Auto-generated method stub
+//		if(this.name.compareTo(person.getName()) < 0) {
+//			return -1;
+//		} else if (this.name.compareTo(person.getName()) > 0) {
+//			return 1;
+//		}
+//		return 0;
+//	}
 }

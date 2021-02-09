@@ -19,34 +19,34 @@ public class Main {
 		Manager manager = new Manager();
 		
 		while(true) { 
-			System.out.println("1.추가 2.전체 출력 3.검색 4.전화번호 수정 5.삭제 6.정렬 7. 저장 8. 불러오기 9.종료");
+			System.out.println("1.추가 2.전체 출력 3.검색 4.전화번호 수정 5.삭제 6.정렬 7. 로컬에 저장 8. 불러오기 9. 서버에 저장 10. 서버에서 불러오기 11. 종료");
 			System.out.print("선택: ");
-			String menu = DataInput.SCANNER.nextLine();
+			String menu = Util.SCANNER.nextLine();
 			switch(menu) {
 				case "1":
 					System.out.print("추가하고 싶은 타입을 선택하세요(1. 일반 2. 동창 3. 직장): ");
-					int type = DataInput.SCANNER.nextInt();
-					DataInput.SCANNER.nextLine();
+					int type = Util.SCANNER.nextInt();
+					Util.SCANNER.nextLine();
 					System.out.print("이름: ");
-					String name = DataInput.SCANNER.nextLine();
+					String name = Util.SCANNER.nextLine();
 					System.out.print("전화번호: ");
-					String phoneNumber = DataInput.SCANNER.nextLine();
+					String phoneNumber = Util.SCANNER.nextLine();
 					System.out.print("생년월일: ");
-					String birth = DataInput.SCANNER.nextLine();
+					String birth = Util.SCANNER.nextLine();
 					if (type == 1) {
 						manager.addPhoneInfo(name, phoneNumber, birth);
 					} else if (type == 2) {
 						System.out.print("부서: ");
-						String department = DataInput.SCANNER.nextLine();
+						String department = Util.SCANNER.nextLine();
 						System.out.print("직책: ");
-						String position = DataInput.SCANNER.nextLine();
+						String position = Util.SCANNER.nextLine();
 						manager.addPhoneInfo(name, phoneNumber, birth, department, position);
 					} else if (type == 3) {
 						System.out.print("학번: ");
-						int studentId = DataInput.SCANNER.nextInt();
-						DataInput.SCANNER.nextLine();
+						int studentId = Util.SCANNER.nextInt();
+						Util.SCANNER.nextLine();
 						System.out.print("전공: ");
-						String major = DataInput.SCANNER.nextLine();
+						String major = Util.SCANNER.nextLine();
 						manager.addPhoneInfo(name, phoneNumber, birth, studentId, major);
 					}
 					break;
@@ -55,12 +55,12 @@ public class Main {
 					break;
 				case "3":
 					System.out.print("찾고 싶은 사람의 이름: ");
-					String searchName = DataInput.SCANNER.nextLine();
+					String searchName = Util.SCANNER.nextLine();
 					manager.searchPhoneInfo(searchName);
 					break;
 				case "4":
 					System.out.print("수정할 사람의 이름: ");
-					String userName = DataInput.SCANNER.nextLine();
+					String userName = Util.SCANNER.nextLine();
 					String userNumber = "";
 					try {
 						userNumber = getPhoneNumber();
@@ -72,7 +72,7 @@ public class Main {
 					break;
 				case "5":
 					System.out.print("삭제할 사람의 이름: ");
-					String deleteName = DataInput.SCANNER.nextLine();
+					String deleteName = Util.SCANNER.nextLine();
 					manager.deletePhoneInfo(deleteName);
 					break;
 					
@@ -87,7 +87,14 @@ public class Main {
 				case "8":
 					manager.loadObject();
 					break;
+				case "9":
+					manager.saveDataToServer();
+					break;
+				case "10":
+					manager.loadDataFromServer();
+					break;
 				default:
+					manager.terminateServer();
 					return;
 					
 			}
