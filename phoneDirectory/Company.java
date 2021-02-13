@@ -13,7 +13,6 @@ public class Company extends PhoneInfo {
 	
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		super.show();
 		System.out.println("부서: "+ department);
 		System.out.println("직책 : "+ position);
