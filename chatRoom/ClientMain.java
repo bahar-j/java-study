@@ -10,8 +10,8 @@ public class ClientMain {
 		Socket clientSocket = null;
 		try {
 			clientSocket = new Socket("127.0.0.1", 9000);
-			ClientReceiver receiver = new ClientReceiver(clientSocket);
-			ClientSender sender = new ClientSender(clientSocket);
+			Thread receiver = new ClientReceiver(clientSocket);
+			Thread sender = new ClientSender(clientSocket);
 			receiver.start();
 			sender.start();
 		} catch (UnknownHostException e) {
