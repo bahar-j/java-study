@@ -19,24 +19,23 @@ public class Util {
 	public static String toJSON(List<Customer> customers) {
 		return net.sf.json.JSONArray.fromObject(customers).toString();
 	}
-	
+
 	public static List<Customer> toList(String json) {
 		List<Customer> customers = new ArrayList<Customer>();
-		Coffee coffee_ = new Coffee();
-		
+
 		JSONParser parser = new JSONParser();
 		Object object = null;
-		
+
 		try {
 			object = parser.parse(json);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		if (object instanceof JSONArray) {
 			JSONArray arr = (JSONArray)object;
 			Iterator iterator = arr.iterator();
-			if(iterator.hasNext()) {
+			while(iterator.hasNext()) {
 				JSONObject jo = (JSONObject)iterator.next();
 				String name = (String)jo.get("name");
 				String number = (String)jo.get("number");
@@ -50,17 +49,19 @@ public class Util {
 					int price = ((Long)obj.get("price")).intValue();
 					customers.add(new Customer(name, number, id, password, nickName, coupon, new Coffee(coffeeName, price)));
 				}
-				else customers.add(new Customer(name, number, id, password, nickName, coupon, null));
+				else {
+					customers.add(new Customer(name, number, id, password, nickName, coupon, null));
+				}
 			}
 		}
-		
+
 		return customers;
 	}
-	
+
 	public static void saveAsObject(List<Customer> customers) {
 		ObjectOutputStream oos = null;
 		try {
-			oos = new ObjectOutputStream(new FileOutputStream("customerInfo.ser", true));
+			oos = new ObjectOutputStream(new FileOutputStream("customerInfo.ser"));
 			oos.writeObject(customers);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +73,7 @@ public class Util {
 			}
 		}
 	}
-	
+
 	public static List<Customer> loadObject() {
 		List<Customer> loadedData = new ArrayList<Customer>();
 		ObjectInputStream ols = null;
@@ -91,8 +92,8 @@ public class Util {
 				}
 			}
 		}
-		
+
 		return loadedData;
 	}
-	
+
 }

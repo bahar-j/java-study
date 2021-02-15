@@ -5,9 +5,9 @@ public class Order {
 	private Customer customer;
 	private Coffee coffee;
 	private int count;
-	
+
 	public Order() {
-	
+
 	}
 
 	public Order(Customer customer, Coffee coffee, int count) {
@@ -36,6 +36,6 @@ public class Order {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
-	
+
+
 }
