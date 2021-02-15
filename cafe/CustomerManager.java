@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class CustomerManager {
-
+	Scanner sc = new Scanner(System.in);
 	List<Customer> customerList = new ArrayList<Customer>();
 	Customer loggedInCustomer;
 
@@ -67,7 +67,6 @@ public class CustomerManager {
 
 	public void join() {
 		String id = "";
-		Scanner sc = new Scanner(System.in);
 		System.out.print("이름을 입력해주세요: ");
 		String name = sc.nextLine();
 
@@ -93,7 +92,6 @@ public class CustomerManager {
 
 	public void login() {
 		loadFromServer();
-		Scanner sc = new Scanner(System.in);
 //		System.out.println(customerList.get(0).getLiked());
 		while(true) {
 			System.out.print("아이디를 입력해주세요: ");
@@ -141,11 +139,19 @@ public class CustomerManager {
 		} else return true;
 	}
 
-	public void addLiked() {
+	public void addLiked(Coffee favoriteCoffee) {
 		loadFromServer();
-
-		// 즐겨찾는 메뉴 추가 (customerList 수정)
-
+		Customer customerInfo = null;
+		for(Customer c: customerList) {
+			if(c.getId().equals(loggedInCustomer.getId())) {
+				customerInfo = c;
+				break;
+			}
+		}
+		customerList.remove(customerInfo);
+		customerInfo.setLiked(favoriteCoffee);
+		customerList.add(customerInfo);
+		loggedInCustomer = customerInfo;
 		saveToServer();
 	}
 } 
