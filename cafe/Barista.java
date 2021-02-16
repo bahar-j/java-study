@@ -1,4 +1,4 @@
-package kosta.cafe;
+package cafe;
 
 import java.util.Iterator;
 

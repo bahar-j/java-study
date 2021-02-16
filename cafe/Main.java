@@ -1,9 +1,8 @@
-package kosta.cafe;
+package cafe;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO: 상담원 채팅, 직원 여러명
 		CustomerManager customerManager = new CustomerManager();
 		POS pos = new POS();
 		Barista barista = new Barista(pos);
@@ -11,7 +10,7 @@ public class Main {
 		barista.start();
 
 		while(true) {
-			System.out.println("--------------- Kosta Coffee ---------------");
+			System.out.println("--------------- Cafe Bene ---------------");
 			System.out.println("어서오세요:)");
 			System.out.println("1.회원가입 2.로그인 3.종료");
 			System.out.print("원하시는 메뉴 선택해주세요: ");

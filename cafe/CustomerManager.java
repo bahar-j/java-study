@@ -1,4 +1,4 @@
-package kosta.cafe;
+package cafe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
