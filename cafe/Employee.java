@@ -37,7 +37,7 @@ public class Employee extends Thread {
 		System.out.println("--------------------------");
 	}
 
-	public void push(Customer customer) {
+	public void getOrder(Customer customer) {
 
 		showMenu();
 		System.out.println("주문하실 메뉴를 선택해 주세요.");
@@ -45,21 +45,31 @@ public class Employee extends Thread {
 		String coffeeName = scanner.nextLine();
 		System.out.print("수량: ");
 		int count = Integer.parseInt(scanner.nextLine());
-
 		int coupon = customer.getCoupon();
 		Coffee c = grabCoffee(coffeeName);
 		if(c != null) {
-			orderList.add(new Order(customer, c, count));
-			customer.setCoupon(coupon++);
-			System.out.println(customer.getNickName() + "님 " + c.getCoffeeName() + " " + count + "잔 주문 완료되었습니다.");
-			System.out.println("결제하실 금액은 " + c.getPrice() * count + "원입니다.");
+			push(customer, c, count, coupon+1);
 		} else System.out.println("찾으시는 커피가 없습니다.");
 	}
 
+	public synchronized void push(Customer customer, Coffee c, int count, int coupon) {
+		orderList.add(new Order(customer, c, count));
+		customer.setCoupon(coupon);
+		System.out.println(customer.getNickName() + "님 " + c.getCoffeeName() + " " + count + "잔 주문 완료되었습니다.");
+		System.out.println("결제하실 금액은 " + c.getPrice() * count + "원입니다.");
+		this.notify();
+	}
+
 	@Override
-	public void run() {
-		// 스레드로 리스트에 있는 메뉴 5초마다 프린트하고 리스트에서 삭제
-		while (orderList.size() > 0) {
+	public synchronized void run() {
+		while (true) {
+			if(orderList.size() == 0) {
+				try {
+					this.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
 			for (Order o : orderList) {
 				System.out.println(o.getCustomer().getNickName() + "님 주문하신 " + o.getCoffee().getCoffeeName() + " "
@@ -69,7 +79,7 @@ public class Employee extends Thread {
 			}
 
 			try {
-				sleep(5000);
+				sleep(5000); // ~커피 만드는 시간~ thread 하나이므로 다른 주문 받을 수 없음 !
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -77,8 +87,6 @@ public class Employee extends Thread {
 	}
 
 	public void useCoupon(Customer customer) {
-		// 쿠폰이 5장이면 메뉴 하나를 공짜로 선택 가능
-		// 쿠폰을 0개로 setCoupon
 		showMenu();
 		System.out.println("주문하실 메뉴를 선택해 주세요.");
 		System.out.print("메뉴: ");
@@ -87,36 +95,30 @@ public class Employee extends Thread {
 		int count = Integer.parseInt(scanner.nextLine());
 		int coupon = customer.getCoupon();
 
-		//int a = (int)Math.floor(coupon/5); //a가 한잔
-
-
 		Coffee c = grabCoffee(coffeeName);
 		if(c != null) {
-			orderList.add(new Order(customer, c, count));
-			customer.setCoupon(coupon-5);
-			System.out.println(customer.getNickName() + "님 " + c.getCoffeeName() + " " + count + "잔 주문 완료되었습니다.");
+			push(customer, c, count, coupon-5);
 			System.out.println("쿠폰이 사용되었습니다.");
 		} else System.out.println("찾으시는 커피가 없습니다.");
 	}
 
-	public boolean useLiked(Customer customer) {
-		// 즐겨찾는 메뉴가 있으면 이 메뉴로 주문하시겠습니까?
-		boolean done = false;
+	public void useLiked(Customer customer) {
+
 		System.out.println("즐겨찾는 메뉴 " + customer.getLiked() + "을(를) 주문하시겠습니까?");
 		System.out.println("[1] 네\t[2] 아니오");
 		int num = Integer.parseInt(scanner.nextLine());
+		int coupon = customer.getCoupon();
 
 		if (num == 1) {
 			System.out.print("수량: ");
 			int count = Integer.parseInt(scanner.nextLine());
-
-			orderList.add(new Order(customer, customer.getLiked(), count));
-			System.out.println(customer.getNickName() + "님 " + customer.getLiked() + " " + count + "잔 주문 완료되었습니다.");
-			System.out.println("결제하실 금액은 " + customer.getLiked().getPrice() * count + "원입니다.");
-			done = true;
+			push(customer, customer.getLiked(), count, coupon+1);
+		} else if (num == 2) {
+			getOrder(customer);
+		} else {
+			System.out.println("잘못된 입력입니다. 다시 시도하세요.");
 		}
 
-		return done;
 	}
 
 }

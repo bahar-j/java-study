@@ -6,12 +6,11 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-
+		// TODO: 상담원 채팅, 직원 여러명
 		CustomerManager customerManager = new CustomerManager();
 		Scanner scanner = new Scanner(System.in);
 		Employee employee = new Employee();
-		Thread thread = new Employee();
-		thread.start();
+		employee.start();
 
 		while(true) {
 
@@ -35,12 +34,9 @@ public class Main {
 							continue;
 						}
 						if (customerManager.loggedInCustomer.getLiked()!=null) {
-							boolean isDone = employee.useLiked(customerManager.loggedInCustomer);
-							if(!isDone) {
-								employee.push(customerManager.loggedInCustomer);
-							}
+							employee.useLiked(customerManager.loggedInCustomer);
 						} else {
-							employee.push(customerManager.loggedInCustomer);
+							employee.getOrder(customerManager.loggedInCustomer);
 						}
 					} else if (num.equals("2")) {
 						employee.showMenu();
@@ -58,7 +54,6 @@ public class Main {
 					} else {
 						System.out.println("없는 메뉴입니다. 다시 시도하세요.");
 					}
-
 				}
 			} else if (menu.equals("3")) {
 				System.out.println("프로그램 종료");
@@ -66,7 +61,6 @@ public class Main {
 			}else {
 				System.out.println("없는 메뉴입니다. 다시 시도하세요.");
 			}
-
 		}
 	}
 
