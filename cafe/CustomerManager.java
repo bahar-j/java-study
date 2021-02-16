@@ -101,6 +101,27 @@ public class CustomerManager {
 		}
 	}
 
+	public void addLiked(Coffee favoriteCoffee) {
+		loadFromServer();
+		Customer customerInfo = null;
+		for(Customer c: customerList) {
+			if(c.getId().equals(loggedInCustomer.getId())) {
+				customerInfo = c;
+				break;
+			}
+		}
+		customerInfo.setLiked(favoriteCoffee);
+		loggedInCustomer = customerInfo;
+		updateCurrentUserData();
+	}
+
+	public void updateCurrentUserData() {
+		customerList.remove(idx);
+		customerList.add(loggedInCustomer);
+		idx = customerList.indexOf(loggedInCustomer);
+		saveToServer();
+	}
+
 	public boolean isDuplicated(String id) {
 		boolean isDuplicated = false;
 		for(Customer c: customerList) {
@@ -135,26 +156,6 @@ public class CustomerManager {
 			System.out.println("잘못된 아이디 혹은 비밀번호입니다⛔ 다시 한 번 입력해주세요!️");
 			return false;
 		} else return true;
-	}
-
-	public void addLiked(Coffee favoriteCoffee) {
-		loadFromServer();
-		Customer customerInfo = null;
-		for(Customer c: customerList) {
-			if(c.getId().equals(loggedInCustomer.getId())) {
-				customerInfo = c;
-				break;
-			}
-		}
-		customerInfo.setLiked(favoriteCoffee);
-		loggedInCustomer = customerInfo;
-		saveToServer();
-	}
-
-	public void updateCurrentUserData() {
-		customerList.remove(idx);
-		customerList.add(loggedInCustomer);
-		saveToServer();
 	}
 
 	public Customer getLoggedInCustomer() {

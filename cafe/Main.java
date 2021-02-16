@@ -27,13 +27,13 @@ public class Main {
 					if(num.equals("1")) {
 						if(customerManager.getLoggedInCustomer().getCoupon()>=5) {
 							employee.useCoupon(customerManager.getLoggedInCustomer());
-							continue;
-						}
-						if (customerManager.getLoggedInCustomer().getLiked()!=null) {
+							customerManager.updateCurrentUserData();
+						} else if (customerManager.getLoggedInCustomer().getLiked()!=null) {
 							employee.useLiked(customerManager.getLoggedInCustomer());
 						} else {
 							employee.getOrder(customerManager.getLoggedInCustomer());
 						}
+						customerManager.updateCurrentUserData();
 					} else if (num.equals("2")) {
 						employee.showMenu();
 						System.out.print("메뉴: ");
@@ -46,7 +46,6 @@ public class Main {
 						}
 					} else if (num.equals("3")) {
 						System.out.println("프로그램 종료");
-						customerManager.updateCurrentUserData();
 						return;
 					} else {
 						System.out.println("없는 메뉴입니다. 다시 시도하세요.");
@@ -54,7 +53,6 @@ public class Main {
 				}
 			} else if (menu.equals("3")) {
 				System.out.println("프로그램 종료");
-				customerManager.updateCurrentUserData();
 				return;
 			}else {
 				System.out.println("없는 메뉴입니다. 다시 시도하세요.");
