@@ -21,10 +21,6 @@ public class Order {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
 	public Coffee getCoffee() {
 		return coffee;
 	}
@@ -32,10 +28,5 @@ public class Order {
 	public int getCount() {
 		return count;
 	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
 
 }

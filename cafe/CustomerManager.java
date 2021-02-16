@@ -99,6 +99,7 @@ public class CustomerManager {
 
 			if(canLogin(id, pw)) break;
 		}
+		System.out.println(loggedInCustomer.getNickName()+"님 로그인 되셨습니다.");
 	}
 
 	public void addLiked(Coffee favoriteCoffee) {
@@ -144,7 +145,6 @@ public class CustomerManager {
 			if(c.getId().equals(id)) {
 				isRightId = true;
 				if(c.getPw().equals(pw)) {
-					System.out.println(c.getNickName()+"님 로그인 되셨습니다.");
 					isRightPw = true;
 					loggedInCustomer = c;
 					idx = customerList.indexOf(c);
@@ -161,6 +161,5 @@ public class CustomerManager {
 	public Customer getLoggedInCustomer() {
 		return loggedInCustomer;
 	}
-
 
 } 

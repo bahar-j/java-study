@@ -9,7 +9,6 @@ public class Main {
 		employee.start();
 
 		while(true) {
-
 			System.out.println("--------------- Kosta Coffee ---------------");
 			System.out.println("어서오세요:)");
 			System.out.println("1.회원가입 2.로그인 3.종료");

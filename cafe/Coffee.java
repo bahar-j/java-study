@@ -6,9 +6,9 @@ public class Coffee implements Serializable {
 
 	private String coffeeName;
 	private int price;
-	
+
 	public Coffee() {
-		
+
 	}
 
 	public Coffee(String coffeeName, int price) {
@@ -21,21 +21,13 @@ public class Coffee implements Serializable {
 		return coffeeName;
 	}
 
-	public void setCoffeeName(String coffeeName) {
-		this.coffeeName = coffeeName;
-	}
-
 	public int getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	
 	@Override
-   public String toString() {
-      return coffeeName + ": " + price + "원";
-   }
-	
+	public String toString() {
+		return coffeeName + ": " + price + "원";
+	}
+
 }
