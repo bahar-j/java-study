@@ -46,7 +46,7 @@ public class Util {
 				String password = (String)jo.get("pw");
 				String nickName = (String)jo.get("nickName");
 				int coupon = ((Long)jo.get("coupon")).intValue();
-				JSONObject obj = (JSONObject)jo.get("liked");
+				JSONObject obj = (JSONObject)jo.get("preference");
 				if(obj != null) {
 					String coffeeName = (String)obj.get("coffeeName");
 					int price = ((Long)obj.get("price")).intValue();

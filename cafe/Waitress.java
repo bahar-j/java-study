@@ -12,7 +12,7 @@ public class Waitress {
 		prepareMenu();
 		this.pos = pos;
 	}
-	
+
 	public void prepareMenu() {
 		menu.add(new Coffee("아메리카노", 4000));
 		menu.add(new Coffee("라떼", 4500));
@@ -20,7 +20,7 @@ public class Waitress {
 		menu.add(new Coffee("아이스티", 3500));
 		menu.add(new Coffee("핫초코", 3500));
 	}
-	
+
 	public void showMenu() {
 		System.out.println("---------- Menu ----------");
 		for (Coffee c : menu) {
@@ -28,7 +28,7 @@ public class Waitress {
 		}
 		System.out.println("--------------------------");
 	}
-	
+
 	public Coffee grabCoffee(String coffeeName) {
 		Coffee picked = null;
 		for(Coffee coffee: menu) {
@@ -53,7 +53,7 @@ public class Waitress {
 			makeOrder(customer, c, count, coupon+count, false);
 		} else System.out.println("찾으시는 커피가 없습니다.");
 	}
-	
+
 	public void makeOrder(Customer customer, Coffee c, int count, int coupon, boolean useCoupon) {
 		pos.push(new Order(customer, c, count));
 		customer.setCoupon(coupon);
@@ -61,46 +61,43 @@ public class Waitress {
 		if (!useCoupon) System.out.println("결제하실 금액은 " + c.getPrice() * count + "원입니다.");
 	}
 
-   public void useCoupon(Customer customer) {
-	      System.out.println("쿠폰 사용이 가능합니다. 쿠폰을 사용하시겠습니까?");
-	      System.out.println("[1] 네\t[2] 아니오");
-	      int num = Integer.parseInt(Util.SCANNER.nextLine());
-	      int coupon = customer.getCoupon();
-	      if (num == 1) {
-	         showMenu();
-	         System.out.println("주문하실 메뉴를 선택해 주세요.");
-	         System.out.print("메뉴: ");
-	         String coffeeName = Util.SCANNER.nextLine();
-	         
-	         Coffee c = grabCoffee(coffeeName);
-	         if (c != null) {
-	            makeOrder(customer, c, 1, coupon - 5, true);
-	            System.out.println("쿠폰이 사용되었습니다.");
-	         } else
-	            System.out.println("찾으시는 커피가 없습니다.");
-	      } else if (num == 2) {
-	         getOrder(customer);
-	      } else {
-	         System.out.println("없는 메뉴입니다. 다시 시도하세요.");
-	      }
-	   }
+	public boolean useCoupon(Customer customer) {
+		System.out.println("쿠폰 사용이 가능합니다. 쿠폰을 사용하시겠습니까?");
+		System.out.println("[1] 네\t[2] 아니오");
+		int num = Integer.parseInt(Util.SCANNER.nextLine());
+		int coupon = customer.getCoupon();
+		if (num == 1) {
+			showMenu();
+			System.out.println("주문하실 메뉴를 선택해 주세요.");
+			System.out.print("메뉴: ");
+			String coffeeName = Util.SCANNER.nextLine();
+
+			Coffee c = grabCoffee(coffeeName);
+			if (c != null) {
+				makeOrder(customer, c, 1, coupon - 5, true);
+				System.out.println("쿠폰이 사용되었습니다.");
+				return true;
+			} else System.out.println("찾으시는 커피가 없습니다.");
+		}
+		return false;
+	}
 
 	public void orderByPreference(Customer customer) {
-	      
-	      System.out.println("즐겨찾는 메뉴 " + customer.getPreference() + "을(를) 주문하시겠습니까?");
-	      System.out.println("[1] 네\t[2] 아니오");
-	      int num = Integer.parseInt(Util.SCANNER.nextLine());
-	      int coupon = customer.getCoupon();
 
-	      if (num == 1) {
-	         System.out.print("수량: ");
-	         int count = Integer.parseInt(Util.SCANNER.nextLine());
-	         makeOrder(customer, customer.getPreference(), count, coupon+count, false);
-	      } else if (num == 2) {
-	         getOrder(customer);
-	      } else {
-	         System.out.println("잘못된 입력입니다. 다시 시도하세요.");
-	      }
+		System.out.println("즐겨찾는 메뉴 " + customer.getPreference() + "을(를) 주문하시겠습니까?");
+		System.out.println("[1] 네\t[2] 아니오");
+		int num = Integer.parseInt(Util.SCANNER.nextLine());
+		int coupon = customer.getCoupon();
 
-	   }
+		if (num == 1) {
+			System.out.print("수량: ");
+			int count = Integer.parseInt(Util.SCANNER.nextLine());
+			makeOrder(customer, customer.getPreference(), count, coupon+count, false);
+		} else if (num == 2) {
+			getOrder(customer);
+		} else {
+			System.out.println("잘못된 입력입니다. 다시 시도하세요.");
+		}
+
+	}
 }

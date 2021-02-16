@@ -27,10 +27,14 @@ public class Main {
 					String num = Util.SCANNER.nextLine();
 					if(num.equals("1")) {
 						// 쿠폰 주문
-						if(customerManager.getLoggedInCustomer().getCoupon()>=5) {
-							waitress.useCoupon(customerManager.getLoggedInCustomer());
-							// 선호메뉴 주문
-						} else if (customerManager.getLoggedInCustomer().getPreference()!=null) {
+						if(customerManager.getLoggedInCustomer().getCoupon() >= 5) {
+							if(waitress.useCoupon(customerManager.getLoggedInCustomer())) {
+								customerManager.updateCurrentUserData();
+								continue;
+							}
+						}
+						// 선호메뉴 주문
+						if (customerManager.getLoggedInCustomer().getPreference() != null) {
 							waitress.orderByPreference(customerManager.getLoggedInCustomer());
 							// 일반 주문
 						} else {
@@ -39,8 +43,7 @@ public class Main {
 						customerManager.updateCurrentUserData();
 					} else if (num.equals("2")) {
 						waitress.showMenu();
-						System.out.print("메뉴: ");
-						System.out.println("즐겨찾기할 음료 이름을 말해주세요.");
+						System.out.print("즐겨찾기할 음료 이름을 말해주세요: ");
 						String coffeeName = Util.SCANNER.nextLine();
 						Coffee coffee = waitress.grabCoffee(coffeeName);
 						if(coffee != null) {
