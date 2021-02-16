@@ -9,12 +9,15 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Util {
+
+	public static final Scanner SCANNER = new Scanner(System.in);
 
 	public static String toJSON(List<Customer> customers) {
 		return net.sf.json.JSONArray.fromObject(customers).toString();

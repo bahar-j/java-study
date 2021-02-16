@@ -24,7 +24,6 @@ public class Server {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 				String action = reader.readLine();
-//				System.out.println(action);
 
 				if(action.equals("save")) {
 					String received = reader.readLine();

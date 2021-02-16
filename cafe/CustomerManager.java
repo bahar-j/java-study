@@ -7,12 +7,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CustomerManager {
-	Scanner sc = new Scanner(System.in);
-	List<Customer> customerList = new ArrayList<Customer>();
-	Customer loggedInCustomer;
+	private List<Customer> customerList = new ArrayList<Customer>();
+	private Customer loggedInCustomer;
+	private int idx;
 
 	public CustomerManager() { loadFromServer(); }
 
@@ -23,7 +22,6 @@ public class CustomerManager {
 			socket = new Socket("localhost", 9000);
 
 			PrintWriter writer = new PrintWriter(socket.getOutputStream());
-
 			writer.println("save");
 			writer.flush();
 
@@ -68,22 +66,22 @@ public class CustomerManager {
 	public void join() {
 		String id = "";
 		System.out.print("이름을 입력해주세요: ");
-		String name = sc.nextLine();
+		String name = Util.SCANNER.nextLine();
 
 		System.out.print("전화번호를 입력해주세요: ");
-		String number = sc.nextLine();
+		String number = Util.SCANNER.nextLine();
 
 		while(true) {
 			System.out.print("아이디를 입력해주세요: ");
-			id = sc.nextLine();
+			id = Util.SCANNER.nextLine();
 			if(!isDuplicated(id)) break;
 		}
 
 		System.out.print("비밀번호를 입력해주세요: ");
-		String pw = sc.nextLine();
+		String pw = Util.SCANNER.nextLine();
 
 		System.out.print("닉네임을 입력해주세요: ");
-		String nickName = sc.nextLine();
+		String nickName = Util.SCANNER.nextLine();
 
 		customerList.add(new Customer(name, number, id, pw, nickName));
 		saveToServer();
@@ -92,13 +90,12 @@ public class CustomerManager {
 
 	public void login() {
 		loadFromServer();
-//		System.out.println(customerList.get(0).getLiked());
 		while(true) {
 			System.out.print("아이디를 입력해주세요: ");
-			String id = sc.nextLine();
+			String id = Util.SCANNER.nextLine();
 
 			System.out.print("비밀번호를 입력해주세요: ");
-			String pw = sc.nextLine();
+			String pw = Util.SCANNER.nextLine();
 
 			if(canLogin(id, pw)) break;
 		}
@@ -129,6 +126,7 @@ public class CustomerManager {
 					System.out.println(c.getNickName()+"님 로그인 되셨습니다.");
 					isRightPw = true;
 					loggedInCustomer = c;
+					idx = customerList.indexOf(c);
 					break;
 				}
 			}
@@ -148,10 +146,20 @@ public class CustomerManager {
 				break;
 			}
 		}
-		customerList.remove(customerInfo);
 		customerInfo.setLiked(favoriteCoffee);
-		customerList.add(customerInfo);
 		loggedInCustomer = customerInfo;
 		saveToServer();
 	}
+
+	public void updateCurrentUserData() {
+		customerList.remove(idx);
+		customerList.add(loggedInCustomer);
+		saveToServer();
+	}
+
+	public Customer getLoggedInCustomer() {
+		return loggedInCustomer;
+	}
+
+
 } 
