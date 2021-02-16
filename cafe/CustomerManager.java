@@ -102,7 +102,7 @@ public class CustomerManager {
 		System.out.println(loggedInCustomer.getNickName()+"님 로그인 되셨습니다.");
 	}
 
-	public void addLiked(Coffee favoriteCoffee) {
+	public void addPreference(Coffee favoriteCoffee) {
 		loadFromServer();
 		Customer customerInfo = null;
 		for(Customer c: customerList) {
@@ -111,7 +111,7 @@ public class CustomerManager {
 				break;
 			}
 		}
-		customerInfo.setLiked(favoriteCoffee);
+		customerInfo.setPreference(favoriteCoffee);
 		loggedInCustomer = customerInfo;
 		updateCurrentUserData();
 	}

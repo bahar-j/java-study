@@ -10,7 +10,7 @@ public class Customer implements Serializable {
 	private String pw;
 	private String nickName;
 	private int coupon;
-	private Coffee liked;
+	private Coffee preference;
 
 	public Customer() {
 
@@ -25,14 +25,14 @@ public class Customer implements Serializable {
 		this.coupon = 0;
 	}
 
-	public Customer(String name, String number, String id, String pw, String nickName, int coupon, Coffee liked) {
+	public Customer(String name, String number, String id, String pw, String nickName, int coupon, Coffee preference) {
 		this.name = name;
 		this.number = number;
 		this.id = id;
 		this.pw = pw;
 		this.nickName = nickName;
 		this.coupon = coupon;
-		this.liked = liked;
+		this.preference = preference;
 	}
 
 	public String getName() {
@@ -63,12 +63,12 @@ public class Customer implements Serializable {
 		this.coupon = coupon;
 	}
 
-	public Coffee getLiked() {
-		return liked;
+	public Coffee getPreference() {
+		return preference;
 	}
 
-	public void setLiked(Coffee liked) {
-		this.liked = liked;
+	public void setPreference(Coffee preference) {
+		this.preference = preference;
 	}
 
 

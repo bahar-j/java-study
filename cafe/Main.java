@@ -5,8 +5,10 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO: 상담원 채팅, 직원 여러명
 		CustomerManager customerManager = new CustomerManager();
-		Employee employee = new Employee();
-		employee.start();
+		POS pos = new POS();
+		Barista barista = new Barista(pos);
+		Waitress waitress = new Waitress(pos);
+		barista.start();
 
 		while(true) {
 			System.out.println("--------------- Kosta Coffee ---------------");
@@ -26,23 +28,23 @@ public class Main {
 					if(num.equals("1")) {
 						// 쿠폰 주문
 						if(customerManager.getLoggedInCustomer().getCoupon()>=5) {
-							employee.useCoupon(customerManager.getLoggedInCustomer());
+							waitress.useCoupon(customerManager.getLoggedInCustomer());
 							// 선호메뉴 주문
-						} else if (customerManager.getLoggedInCustomer().getLiked()!=null) {
-							employee.useLiked(customerManager.getLoggedInCustomer());
+						} else if (customerManager.getLoggedInCustomer().getPreference()!=null) {
+							waitress.orderByPreference(customerManager.getLoggedInCustomer());
 							// 일반 주문
 						} else {
-							employee.getOrder(customerManager.getLoggedInCustomer());
+							waitress.getOrder(customerManager.getLoggedInCustomer());
 						}
 						customerManager.updateCurrentUserData();
 					} else if (num.equals("2")) {
-						employee.showMenu();
+						waitress.showMenu();
 						System.out.print("메뉴: ");
 						System.out.println("즐겨찾기할 음료 이름을 말해주세요.");
 						String coffeeName = Util.SCANNER.nextLine();
-						Coffee coffee = employee.grabCoffee(coffeeName);
+						Coffee coffee = waitress.grabCoffee(coffeeName);
 						if(coffee != null) {
-							customerManager.addLiked(coffee);
+							customerManager.addPreference(coffee);
 						} else {
 							System.out.println("찾으시는 커피가 없습니다.");
 						}
