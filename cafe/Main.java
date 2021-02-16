@@ -12,7 +12,7 @@ public class Main {
 
 			System.out.println("--------------- Kosta Coffee ---------------");
 			System.out.println("어서오세요:)");
-			System.out.println("1.회원가입  2.로그인 3.종료");
+			System.out.println("1.회원가입 2.로그인 3.종료");
 			System.out.print("원하시는 메뉴 선택해주세요: ");
 			String menu = Util.SCANNER.nextLine();
 
@@ -25,11 +25,13 @@ public class Main {
 					System.out.println("1.주문하기 2.선호메뉴 등록 3.종료");
 					String num = Util.SCANNER.nextLine();
 					if(num.equals("1")) {
+						// 쿠폰 주문
 						if(customerManager.getLoggedInCustomer().getCoupon()>=5) {
 							employee.useCoupon(customerManager.getLoggedInCustomer());
-							customerManager.updateCurrentUserData();
+							// 선호메뉴 주문
 						} else if (customerManager.getLoggedInCustomer().getLiked()!=null) {
 							employee.useLiked(customerManager.getLoggedInCustomer());
+							// 일반 주문
 						} else {
 							employee.getOrder(customerManager.getLoggedInCustomer());
 						}
@@ -37,6 +39,7 @@ public class Main {
 					} else if (num.equals("2")) {
 						employee.showMenu();
 						System.out.print("메뉴: ");
+						System.out.println("즐겨찾기할 음료 이름을 말해주세요.");
 						String coffeeName = Util.SCANNER.nextLine();
 						Coffee coffee = employee.grabCoffee(coffeeName);
 						if(coffee != null) {

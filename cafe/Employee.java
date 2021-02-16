@@ -67,10 +67,10 @@ public class Employee extends Thread {
 			}
 			for (Iterator<Order> iter = orderList.iterator(); iter.hasNext();) {
 				Order o = iter.next();
-				System.out.println();
+				System.out.println("---------------Pick up----------------");
 				System.out.println(o.getCustomer().getNickName() + "님 주문하신 " + o.getCoffee().getCoffeeName() + " "
 						+ o.getCount() + "잔 나왔습니다.");
-				System.out.println();
+				System.out.println("--------------------------------------");
 				iter.remove();
 			}
 		}
