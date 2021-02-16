@@ -1,6 +1,7 @@
 package kosta.cafe;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,36 +53,29 @@ public class Employee extends Thread {
 		} else System.out.println("찾으시는 커피가 없습니다.");
 	}
 
-	public synchronized void push(Customer customer, Coffee c, int count, int coupon) {
+	public void push(Customer customer, Coffee c, int count, int coupon) {
 		orderList.add(new Order(customer, c, count));
 		customer.setCoupon(coupon);
 		System.out.println(customer.getNickName() + "님 " + c.getCoffeeName() + " " + count + "잔 주문 완료되었습니다.");
 		System.out.println("결제하실 금액은 " + c.getPrice() * count + "원입니다.");
-		this.notify();
 	}
 
 	@Override
-	public synchronized void run() {
-		while (true) {
-			if(orderList.size() == 0) {
-				try {
-					this.wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-
-			for (Order o : orderList) {
-				System.out.println(o.getCustomer().getNickName() + "님 주문하신 " + o.getCoffee().getCoffeeName() + " "
-						+ o.getCount() + "잔 나왔습니다.");
-				orderList.remove(0);
-				break;
-			}
-
+	public void run() {
+		// 스레드로 리스트에 있는 메뉴 5초마다 프린트하고 리스트에서 삭제
+		for (int i = 0; i < 20; i++) {
 			try {
-				sleep(5000); // ~커피 만드는 시간~ thread 하나이므로 다른 주문 받을 수 없음 !
+				sleep(3000);
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+			for (Iterator<Order> iter = orderList.iterator(); iter.hasNext();) {
+				Order o = iter.next();
+				System.out.println();
+				System.out.println(o.getCustomer().getNickName() + "님 주문하신 " + o.getCoffee().getCoffeeName() + " "
+						+ o.getCount() + "잔 나왔습니다.");
+				System.out.println();
+				iter.remove();
 			}
 		}
 	}
