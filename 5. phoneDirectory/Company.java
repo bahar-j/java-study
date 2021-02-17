@@ -1,4 +1,4 @@
-package kosta.phone;
+package phoneDirectory;
 
 public class Company extends PhoneInfo {
 	

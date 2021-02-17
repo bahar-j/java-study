@@ -1,4 +1,4 @@
-package orderManagement;
+package restaurant;
 
 public class SaleBook {
 	private int totalSales;

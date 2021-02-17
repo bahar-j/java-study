@@ -1,4 +1,4 @@
-package kosta.basic;
+package basic;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package orderManagement;
+package restaurant;
 
 public class Food {
 	private String name;

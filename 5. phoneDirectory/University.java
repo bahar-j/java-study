@@ -1,4 +1,4 @@
-package kosta.phone;
+package phoneDirectory;
 
 public class University extends PhoneInfo {
 	private int studentId;

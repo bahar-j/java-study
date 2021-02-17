@@ -1,4 +1,4 @@
-package chatRoom;
+package chatting;
 
 import java.io.IOException;
 import java.net.Socket;

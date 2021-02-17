@@ -1,4 +1,4 @@
-package orderManagement;
+package restaurant;
 
 import java.util.Scanner;
 

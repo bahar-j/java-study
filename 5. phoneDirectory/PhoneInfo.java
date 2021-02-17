@@ -1,4 +1,4 @@
-package kosta.phone;
+package phoneDirectory;
 
 import java.io.Serializable;
 
